@@ -1,0 +1,18 @@
+/*reset alert box*/
+.wu-tips{
+    width: 50%;
+    opacity:.6;
+    position: fixed;
+    top:80px;
+    left:50%;
+    margin-left: -25%;
+    z-index: 1201;
+}
+.am-alert{
+    border-radius: 30px;
+    text-align: center;
+}
+/*reset breadNav padding*/
+.container-fluid{
+    padding: 20px;
+}
