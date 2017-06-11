@@ -12,11 +12,27 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.admins.index');
+        $keyword = $request->input('keyword','');
+        $num = $request->input('num', 20);
+//        ->where('phone','like','%'.$keyword.'%')
+//        ->orWhere('username','like','%'.$keyword.'%')
+        $admins = Admin::orderBy('id','desc')
+            ->where(function($query) use($keyword){
+                if($keyword){
+                    $query->where('phone','like','%'.$keyword.'%')
+                        ->orWhere('username','like','%'.$keyword.'%');
+                }
+            })->paginate($num);
+        $params = [
+            'keyword'=>$keyword,
+            'num'=>$num
+        ];
+        return view('admin.admins.index', compact('admins','params'));
     }
 
     /**
@@ -59,6 +75,13 @@ class AdminController extends Controller
         $user->phone = $request->input('phone');
         $user->password = Hash::make($request->input('password'));
 
+        if($request->hasFile('avatar')){
+            $path = './Uploads/'.date('Ymd');
+            $ext = $request->file('avatar')->extension();
+            $filename = time().rand(10000,99999).'.'.$ext;
+            $request->file('avatar')->move($path, $filename);
+            $user->avatar = trim($path.'/'.$filename,'.');
+        }
         if($user->save()){
             return redirect()->route('admins.index')->with('message', '添加成功');
         }else{

@@ -70,8 +70,10 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
+        <example>gggg</example>
+        <wu-search-ipt></wu-search-ipt>
+        @section('content')
+            @show
     </div>
 
     <!-- Scripts -->

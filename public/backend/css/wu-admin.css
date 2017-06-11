@@ -1,4 +1,9 @@
-/*reset alert box*/
+/*change theme position*/
+.tpl-skiner{
+    top: auto;
+    bottom: 0;
+}
+/*rewrite alert box*/
 .wu-tips{
     width: 50%;
     opacity:.6;
@@ -12,7 +17,54 @@
     border-radius: 30px;
     text-align: center;
 }
-/*reset breadNav padding*/
+/*rewrite breadNav padding*/
 .container-fluid{
     padding: 20px;
+}
+/*preview img*/
+.am-form-file img{
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+}
+#wu-preview{
+    display: inline-block;
+}
+/*rewrite list widget-head*/
+.widget-head{
+    display: flex;
+    justify-content: space-between;
+}
+/*pagination*/
+.wu-page .pagination{
+    padding-left: 0;
+    margin: 1.5rem 0;
+    list-style: none;
+    color: #999;
+    text-align: left;
+}
+.wu-page .pagination li{
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wu-page .pagination li.active span{
+    background: #23abf0;
+    color: #fff;
+    border: 1px solid #23abf0;
+}
+
+.wu-page .pagination li span,.wu-page .pagination li a{
+    position: relative;
+    display: block;
+    padding: .5em 1em;
+    text-decoration: none;
+    line-height: 1.2;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    margin-bottom: 5px;
+    margin-right: 5px;
 }

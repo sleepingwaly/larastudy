@@ -8,7 +8,7 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- Styles -->
         <style>
@@ -65,6 +65,7 @@
         </style>
     </head>
     <body>
+    <div id="app">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -81,7 +82,8 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
+                <example></example>
+                <wu-search-ipt></wu-search-ipt>
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -91,5 +93,7 @@
                 </div>
             </div>
         </div>
+    </div>
+    <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

@@ -17,15 +17,16 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/amazeui.datatables.min.css') }}" />
     <link rel="stylesheet" href="{{asset('backend/assets/css/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/css/backend.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/css/wu-admin.css') }}">
     <script src="{{ asset('backend/assets/js/jquery.min.js') }}"></script>
 </head>
 
-<body data-type="index">
+<body>
 <script src="{{ asset('backend/assets/js/theme.js') }}"></script>
 @include('admin.common.tip')
 
-<div class="am-g tpl-g">
+<div id="app" class="am-g tpl-g">
     <!-- 头部 -->
     <header>
         <!-- logo -->
@@ -39,12 +40,12 @@
                 <span></span>
             </div>
             <!-- 搜索 -->
-            <div class="am-fl tpl-header-search">
+            {{--<div class="am-fl tpl-header-search">
                 <form class="tpl-header-search-form" action="javascript:;">
                     <button class="tpl-header-search-btn am-icon-search"></button>
                     <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
                 </form>
-            </div>
+            </div>--}}
             <!-- 其它功能-->
             <div class="am-fr tpl-header-navbar">
                 <ul>
@@ -234,17 +235,18 @@
 
         <div class="container-fluid am-cf">
             <div class="row">
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页 <small>Amaze UI</small></div>
-                    {{--<p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>--}}
+                <div class="am-u-sm-12">
+                    <div class="am-fl">
+                        <div class="page-header-heading">
+                            @yield('breadNav')
+                        </div>
+                    </div>
+                    <div class="am-fr">
+                        @yield('optBtn')
+                    </div>
                 </div>
-                {{--<div class="am-u-lg-3 tpl-index-settings-button">--}}
-                    {{--<button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>--}}
-                {{--</div>--}}
             </div>
-
         </div>
-
         <div class="row-content am-cf">
             @section('content')
             @show
@@ -253,9 +255,11 @@
 </div>
 </div>
 <script src="{{ asset('backend/assets/js/amazeui.min.js') }}"></script>
-<script src="{{ asset('backend/assets/js/amazeui.datatables.min.js') }}"></script>
-<script src="{{ asset('backend/assets/js/dataTables.responsive.min.js') }}"></script>
+{{--<script src="{{ asset('backend/assets/js/amazeui.datatables.min.js') }}"></script>--}}
+{{--<script src="{{ asset('backend/assets/js/dataTables.responsive.min.js') }}"></script>--}}
+<script src="{{ asset('backend/js/backend.js') }}"></script>
 <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+<script src="{{ asset('backend/js/wu-admin.js') }}"></script>
 
 </body>
 

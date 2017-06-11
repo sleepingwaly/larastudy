@@ -13,7 +13,6 @@
     <link rel="apple-touch-icon-precomposed" href="{{asset('backend/assets/i/app-icon72x72@2x.png')}}">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="{{asset('backend/assets/css/amazeui.min.css')}}" />
-    {{--<link rel="stylesheet" href="{{asset('backend/assets/css/amazeui.datatables.min.css')}}" />--}}
     <link rel="stylesheet" href="{{asset('backend/assets/css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('backend/assets/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/wu-admin.css')}}">
@@ -21,7 +20,9 @@
 </head>
 <body data-type="login">
 <script src="{{asset('backend/assets/js/theme.js')}}"></script>
-<div class="am-g tpl-g">
+<div id="app" class="am-g tpl-g">
+    <example></example>
+    <wu-search-ipt></wu-search-ipt>
     <!-- 风格切换 -->
     @include('admin.common.changeSkin')
     <div class="tpl-login">

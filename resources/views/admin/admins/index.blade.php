@@ -1,14 +1,20 @@
 @extends('admin.layouts.app')
-
+@section('breadNav')
+    <span class="am-icon-key page-header-heading-icon"></span> 权限管理 <small>管理员列表</small>
+@endsection
+@section('optBtn')
+    <a class="am-btn am-btn-secondary" href="{{ route('admins.create') }}" ><span class="am-icon-plus"></span> 添加</a>
+@endsection
 @section('content')
     <div class="row">
-
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
-                <div class="widget-head am-cf">
-                    <div class="widget-title am-fl">管理员列表</div>
-                    <div class="widget-function am-fr">
-                        <a href="{{ route('admins.create') }}" class="am-icon-plus"></a>
+                <div class="widget-head">
+                    <div class="widget-title">
+                        <wu-show-num :num="[10,20,50]"></wu-show-num>
+                    </div>
+                    <div class="widget-function">
+                        <wu-search-ipt></wu-search-ipt>
                     </div>
                 </div>
                 <div class="widget-body  widget-body-lg am-fr">
@@ -16,114 +22,41 @@
                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                         <thead>
                         <tr>
-                            <th>文章标题</th>
-                            <th>作者</th>
-                            <th>时间</th>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>头像</th>
+                            <th>手机</th>
+                            <th>添加时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="gradeX">
-                            <td>Amaze UI 模式窗口</td>
-                            <td>张鹏飞</td>
-                            <td>2016-09-26</td>
-                            <td>
-                                <div class="tpl-table-black-operation">
-                                    <a href="javascript:;">
-                                        <i class="am-icon-pencil"></i> 编辑
-                                    </a>
-                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                        <i class="am-icon-trash"></i> 删除
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="even gradeC">
-                            <td>有适配微信小程序的计划吗</td>
-                            <td>天纵之人</td>
-                            <td>2016-09-26</td>
-                            <td>
-                                <div class="tpl-table-black-operation">
-                                    <a href="javascript:;">
-                                        <i class="am-icon-pencil"></i> 编辑
-                                    </a>
-                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                        <i class="am-icon-trash"></i> 删除
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td>请问有没有amazeui 分享插件</td>
-                            <td>王宽师</td>
-                            <td>2016-09-26</td>
-                            <td>
-                                <div class="tpl-table-black-operation">
-                                    <a href="javascript:;">
-                                        <i class="am-icon-pencil"></i> 编辑
-                                    </a>
-                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                        <i class="am-icon-trash"></i> 删除
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="even gradeC">
-                            <td>关于input输入框的问题</td>
-                            <td>着迷</td>
-                            <td>2016-09-26</td>
-                            <td>
-                                <div class="tpl-table-black-operation">
-                                    <a href="javascript:;">
-                                        <i class="am-icon-pencil"></i> 编辑
-                                    </a>
-                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                        <i class="am-icon-trash"></i> 删除
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="even gradeC">
-                            <td>有没有发现官网上的下载包不好用</td>
-                            <td>醉里挑灯看键</td>
-                            <td>2016-09-26</td>
-                            <td>
-                                <div class="tpl-table-black-operation">
-                                    <a href="javascript:;">
-                                        <i class="am-icon-pencil"></i> 编辑
-                                    </a>
-                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                        <i class="am-icon-trash"></i> 删除
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="even gradeC">
-                            <td>我建议WEB版本文件引入问题</td>
-                            <td>罢了</td>
-                            <td>2016-09-26</td>
-                            <td>
-                                <div class="tpl-table-black-operation">
-                                    <a href="javascript:;">
-                                        <i class="am-icon-pencil"></i> 编辑
-                                    </a>
-                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                        <i class="am-icon-trash"></i> 删除
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- more data -->
+                        @foreach($admins as $admin)
+                            <tr>
+                                <td>{{ $admin->id }}</td>
+                                <td>{{ $admin->username }}</td>
+                                <td><img src="{{ $admin->avatar }}" width="80"></td>
+                                <td>{{ $admin->phone }}</td>
+                                <td>{{ $admin->created_at }}</td>
+                                <td>
+                                    <div class="tpl-table-black-operation">
+                                        <a href="javascript:;">
+                                            <i class="am-icon-pencil"></i> 编辑
+                                        </a>
+                                        <a href="javascript:;" class="tpl-table-black-operation-del">
+                                            <i class="am-icon-trash"></i> 删除
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
-
+                </div>
+                <div class="wu-page am-fr">
+                    {{ $admins->appends($params)->links() }}
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
     @endsection
