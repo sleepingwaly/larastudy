@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -70,22 +71,22 @@ class AdminController extends Controller
             'password' => '密码'
         ]);
 
-        $user = new Admin;
-        $user->username = $request->input('username');
-        $user->phone = $request->input('phone');
-        $user->password = Hash::make($request->input('password'));
+        $admin = new Admin;
+        $admin->username = $request->input('username');
+        $admin->phone = $request->input('phone');
+        $admin->password = bcrypt($request->input('password'));
 
         if($request->hasFile('avatar')){
             $path = './Uploads/'.date('Ymd');
             $ext = $request->file('avatar')->extension();
             $filename = time().rand(10000,99999).'.'.$ext;
             $request->file('avatar')->move($path, $filename);
-            $user->avatar = trim($path.'/'.$filename,'.');
+            $admin->avatar = trim($path.'/'.$filename,'.');
         }
-        if($user->save()){
+        if($admin->save()){
             return redirect()->route('admins.index')->with('message', '添加成功');
         }else{
-            return back()->with('message','添加失败');
+            return back()->with(['errMessage'=>'添加失败','message'=>'test']);
         }
     }
 
@@ -108,7 +109,7 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        //
+        return view('admin.admins.edit',compact('admin'));
     }
 
     /**
@@ -120,7 +121,43 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        $this->validate($request, [
+            'username' => [
+                'bail','required',
+                Rule::unique('admins')->ignore($admin->id),
+                'min:2','max:30'
+            ],
+            'phone' => [
+                'bail','required',
+                Rule::unique('admins')->ignore($admin->id),
+                'regex:/^1(\d){10}$/'
+            ]
+        ], [
+            'required' => ':attribute 不能为空',
+            'unique' => ':attribute已存在',
+            'min' => ':attribute最少:min个字符',
+            'max' => ':attribute最长:max个字符',
+            'regex' => ':attribute格式不正确'
+        ], [
+            'username' => '用户名',
+            'phone' => '手机号码'
+        ]);
+
+        $admin->username = $request->input('username');
+        $admin->phone = $request->input('phone');
+        if($request->hasFile('avatar')){
+            $path = './Uploads/'.date('Ymd');
+            $ext = $request->file('avatar')->extension();
+            $filename = time().rand(10000,99999).'.'.$ext;
+            $request->file('avatar')->move($path, $filename);
+            $admin->avatar = trim($path.'/'.$filename,'.');
+        }
+
+        if($admin->save()){
+            return redirect()->route('admins.index')->with('message', '修改成功');
+        }else{
+            return back()->with(['errMessage'=>'修改失败']);
+        }
     }
 
     /**
@@ -131,6 +168,10 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        if($admin->delete()){
+            return Response::json(['status'=>1,'info'=>'删除成功']);
+        }else{
+            return Response::json(['status'=>0,'info'=>'删除失败']);
+        }
     }
 }

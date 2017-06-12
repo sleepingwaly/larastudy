@@ -40,10 +40,10 @@
                                 <td>{{ $admin->created_at }}</td>
                                 <td>
                                     <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
+                                        <a href="{{ route('admins.edit',['admin'=>$admin]) }}">
                                             <i class="am-icon-pencil"></i> 编辑
                                         </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
+                                        <a href="javascript:;" data-url="{{ route('admins.destroy',['id'=>$admin->id]) }}" class="wu-del tpl-table-black-operation-del">
                                             <i class="am-icon-trash"></i> 删除
                                         </a>
                                     </div>

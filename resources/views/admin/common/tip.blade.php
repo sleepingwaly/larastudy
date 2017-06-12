@@ -7,10 +7,16 @@
         </div>
             @endif
         @if(Session::has('message'))
-            <div class="am-alert am-alert-warning am-animation-delay-3 animated fadeOut" data-am-alert>
+            <div class="am-alert am-alert-success am-animation-delay-3 animated fadeOut" data-am-alert>
                 <button type="button" class="am-close">&times;</button>
                 <p>{{ Session::get('message') }}</p>
             </div>
+            @endif
+        @if(Session::has('errMessage'))
+                <div class="am-alert am-alert-danger am-animation-delay-3 animated fadeOut" data-am-alert>
+                    <button type="button" class="am-close">&times;</button>
+                    <p>{{ Session::get('errMessage') }}</p>
+                </div>
             @endif
     </div>
 @endif

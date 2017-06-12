@@ -9,10 +9,12 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/amazeui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/amazeui.datatables.min.css') }}" />
     <link rel="stylesheet" href="{{asset('backend/assets/css/animate.css')}}">
@@ -53,6 +55,7 @@
                     <li class="am-text-sm tpl-header-navbar-welcome">
                         <a href="javascript:;">欢迎你, <span>{{ Auth::guard('admin')->user()->username }}</span> </a>
                     </li>
+{{--
 
                     <!-- 新邮件 -->
                     <li class="am-dropdown tpl-dropdown" data-am-dropdown>
@@ -159,6 +162,7 @@
                         </ul>
                     </li>
 
+--}}
                     <!-- 退出 -->
                     <li class="am-text-sm">
                         @if (Auth::guard('admin')->check())
@@ -178,13 +182,13 @@
         <div class="tpl-sidebar-user-panel">
             <div class="tpl-user-panel-slide-toggleable">
                 <div class="tpl-user-panel-profile-picture">
-                    <img src="{{ asset('backend/assets/img/user04.png') }}" alt="">
+                    <img src="{{ asset(Auth::guard('admin')->user()->avatar) }}" alt="">
                 </div>
                 <span class="user-panel-logged-in-text">
                   <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
                     {{ Auth::guard('admin')->user()->username }}
                 </span>
-                <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
+                <a href="{{ route('admins.edit',['id'=>Auth::guard('admin')->id()]) }}" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
             </div>
         </div>
 
@@ -254,11 +258,12 @@
     </div>
 </div>
 </div>
+<script src="{{ asset('js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('backend/assets/js/amazeui.min.js') }}"></script>
 {{--<script src="{{ asset('backend/assets/js/amazeui.datatables.min.js') }}"></script>--}}
 {{--<script src="{{ asset('backend/assets/js/dataTables.responsive.min.js') }}"></script>--}}
-<script src="{{ asset('backend/js/backend.js') }}"></script>
 <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+<script src="{{ asset('backend/js/backend.js') }}"></script>
 <script src="{{ asset('backend/js/wu-admin.js') }}"></script>
 
 </body>
